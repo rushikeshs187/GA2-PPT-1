@@ -9,7 +9,7 @@
     <style>
         :root {
             --palestine-green: #007A3D;
-            --palestine-red: #CE1126; /* This is no longer the primary accent */
+            --palestine-red: #CE1126; /* No longer primary accent */
             --palestine-black: #000000;
             --palestine-white: #FFFFFF;
             --accent-gold: #D4AF37;
@@ -34,14 +34,16 @@
             color: var(--dark-text);
             overflow-x: hidden;
             background-attachment: fixed;
-            height: 100vh;
-            margin: 0;
-            position: relative;
+            /* UPDATED: Body is now for centering the deck */
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 40px 20px;
         }
         
-        /* Decorative elements from user theme */
+        /* Decorative elements */
         .decoration {
-            position: absolute;
+            position: fixed; /* Fixed so they stay in BG */
             opacity: 0.05;
             z-index: 0;
         }
@@ -62,23 +64,26 @@
             transform: rotate(15deg);
         }
         
+        /* UPDATED: Container is now a fixed-width slide holder */
         .presentation-container {
-            max-width: 1200px;
+            width: 1280px; /* Standard 16:9 width */
+            max-width: 100%;
             margin: 0 auto;
-            padding: 0 20px;
             position: relative;
             z-index: 1;
-            height: 100vh;
             display: flex;
             flex-direction: column;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
         }
         
-        /* Header & Navigation from user theme */
+        /* Header */
         header {
             text-align: center;
             padding: 25px 0;
-            margin-bottom: 20px;
             position: relative;
+            border-bottom: 1px solid var(--light-gray);
         }
         
         .logo-container {
@@ -89,23 +94,23 @@
         }
         
         .logo {
-            width: 60px;
-            height: 60px;
+            width: 50px; /* Slightly smaller */
+            height: 50px;
             background: linear-gradient(135deg, var(--palestine-green), var(--accent-blue));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 24px;
+            font-size: 20px; /* Slightly smaller */
             font-weight: bold;
             box-shadow: 0 4px 15px rgba(44, 110, 145, 0.3);
         }
         
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.6rem;
-            margin: 15px 0;
+            font-size: 2.2rem; /* Slightly smaller */
+            margin: 10px 0;
             background: linear-gradient(to right, var(--palestine-green), var(--accent-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -114,20 +119,19 @@
         }
         
         .subtitle {
-            font-size: 1.3rem;
+            font-size: 1.1rem; /* Slightly smaller */
             color: var(--accent-blue);
             font-weight: 600;
-            margin-top: 8px;
+            margin-top: 5px;
             letter-spacing: 0.5px;
         }
         
-        /* Slide Container from user theme */
+        /* UPDATED: Slide container is now fixed 16:9 ratio */
         .slides-container {
-            flex: 1;
             position: relative;
             overflow: hidden;
-            border-radius: 20px;
-            box-shadow: var(--card-shadow);
+            width: 100%;
+            height: 720px; /* Standard 16:9 height */
             background: white;
         }
         
@@ -135,7 +139,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            padding: 40px;
+            padding: 50px 60px; /* More padding */
             display: flex;
             flex-direction: column;
             opacity: 0;
@@ -152,9 +156,9 @@
         
         .slide-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 2.8rem; /* Bigger title */
             color: var(--palestine-green);
-            margin-bottom: 30px;
+            margin-bottom: 35px; /* More space */
             position: relative;
             display: inline-block;
         }
@@ -213,7 +217,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             width: 100%;
-            align-items: center; /* Improved alignment */
+            align-items: center;
         }
 
         .two-column > div, .image-wrapper {
@@ -234,6 +238,7 @@
             border-radius: 16px;
             overflow: hidden;
             box-shadow: var(--card-shadow);
+            height: 400px; /* Fixed height for consistency */
         }
         .image-wrapper img {
             width: 100%;
@@ -242,7 +247,7 @@
             display: block;
         }
         
-        /* Layout for "Sumood" and "Pillars 2 & 3" slides */
+        /* Layout for "Sumood" */
         .two-column.tiled > div {
             background: linear-gradient(145deg, #ffffff, #f8fbf9);
             border-radius: 16px;
@@ -296,7 +301,7 @@
         /* Layout for "Baseline" slide */
         .highlight-numbers-layout {
             display: grid;
-            grid-template-columns: 1fr 1.2fr; /* Adjusted ratio */
+            grid-template-columns: 1fr 1.2fr;
             gap: 40px;
             align-items: center;
         }
@@ -316,14 +321,14 @@
         }
         .highlight-numbers-layout .number {
             color: var(--accent-blue); /* CHANGED from red */
-            font-size: 9rem;
+            font-size: 10rem; /* Made larger */
             font-weight: 800;
             font-family: 'Playfair Display', serif;
             line-height: 1;
             text-shadow: 2px 2px 10px rgba(44, 110, 145, 0.2); /* CHANGED from red */
         }
         .highlight-numbers-layout .number-label {
-            font-size: 1.5rem;
+            font-size: 1.8rem; /* Made larger */
             font-weight: 700;
             color: var(--dark-text);
         }
@@ -332,7 +337,7 @@
             margin-top: 20px;
         }
 
-        /* NEW: Bar Chart for Slide 2 */
+        /* Bar Chart for Slide 2 */
         .bar-chart-container {
             background: linear-gradient(145deg, #ffffff, #f8fbf9);
             border-radius: 16px;
@@ -400,7 +405,7 @@
         /* Layout for "Core Pillars" slide */
         .sectors-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(4, 1fr); /* 4 columns */
             gap: 25px;
             margin-top: 25px;
         }
@@ -454,13 +459,13 @@
         }
         .sector-title {
             font-family: 'Raleway', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem; /* Adjusted for 4 columns */
             font-weight: 700;
             color: var(--palestine-black);
             margin-bottom: 12px;
         }
         .sector-desc {
-            font-size: 1rem;
+            font-size: 0.95rem; /* Adjusted for 4 columns */
             line-height: 1.6;
             color: var(--medium-gray);
             margin-bottom: 15px;
@@ -469,7 +474,7 @@
         .stat-highlight {
             display: block;
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 2.2rem; /* Adjusted for 4 columns */
             font-weight: 700;
             margin-top: 10px;
         }
@@ -479,8 +484,8 @@
 
         /* CSS Donut Chart for Slide 5 */
         .donut-chart {
-            width: 150px;
-            height: 150px;
+            width: 180px; /* Made larger */
+            height: 180px;
             border-radius: 50%;
             background: conic-gradient(
                 var(--accent-blue) 0% 86%, /* CHANGED from red */
@@ -504,11 +509,11 @@
             position: absolute;
             font-family: 'Playfair Display', serif;
             font-weight: 700;
-            font-size: 2.5rem;
+            font-size: 3rem; /* Made larger */
             color: var(--dark-text);
             background: white;
-            width: 120px;
-            height: 120px;
+            width: 140px; /* Made larger */
+            height: 140px;
             border-radius: 50%;
             display: grid;
             place-items: center;
@@ -524,7 +529,7 @@
         /* Layout for "Investment Models" slide */
         .models-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(4, 1fr); /* 4 columns */
             gap: 25px;
             margin-top: 30px;
         }
@@ -595,12 +600,12 @@
         .model-desc {
             color: var(--medium-gray);
             line-height: 1.6;
-            font-size: 1rem;
+            font-size: 0.95rem; /* Adjusted for 4 columns */
             position: relative;
             z-index: 1;
         }
         .model-card .stat-highlight {
-            font-size: 2rem;
+            font-size: 1.8rem; /* Adjusted for 4 columns */
             margin-bottom: 10px;
         }
 
@@ -609,7 +614,7 @@
             position: relative;
             max-width: 1000px;
             margin: 20px auto 0;
-            padding: 20px 0 20px 40px; /* Add padding for the line */
+            padding: 20px 0 20px 40px;
         }
         .timeline-container::before {
             content: '';
@@ -618,7 +623,7 @@
             bottom: 0;
             width: 4px;
             background: linear-gradient(to bottom, var(--palestine-green), var(--accent-gold));
-            left: 10px; /* Position line on the far left */
+            left: 10px;
             margin-left: 0;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(44, 110, 145, 0.3);
@@ -626,19 +631,17 @@
         .timeline-item {
             position: relative;
             width: 100%;
-            padding: 10px 0 10px 40px; /* Space from the line */
+            padding: 10px 0 10px 40px;
             box-sizing: border-box;
             opacity: 0;
-            transform: translateX(30px); /* Animate from right */
+            transform: translateX(30px);
             transition: all 0.8s ease;
         }
         .timeline-item.visible {
             opacity: 1;
             transform: translateX(0);
         }
-        /* Remove alternating logic */
-        .timeline-item:nth-child(odd) { left: 0; text-align: left; }
-        .timeline-item:nth-child(even) { left: 0; transform: translateX(30px); }
+        .timeline-item:nth-child(even) { transform: translateX(30px); }
         .timeline-item:nth-child(even).visible { transform: translateX(0); }
         
         .timeline-content {
@@ -649,11 +652,6 @@
             position: relative;
             border-left: 4px solid var(--palestine-green);
             transition: all 0.4s ease;
-        }
-        /* Remove alternating border */
-        .timeline-item:nth-child(odd) .timeline-content {
-            border-left: 4px solid var(--palestine-green);
-            border-right: none;
         }
         .timeline-content:hover {
             transform: scale(1.02) translateX(5px);
@@ -669,10 +667,8 @@
             border: 4px solid var(--palestine-green);
             top: 25px;
             z-index: 2;
-            left: -33px; /* Position dot on the line */
+            left: -33px;
         }
-        .timeline-item:nth-child(odd) .timeline-content::before { right: auto; left: -33px; }
-        .timeline-item:nth-child(even) .timeline-content::before { left: -33px; }
         
         .timeline-period {
             font-family: 'Raleway', sans-serif;
@@ -692,11 +688,6 @@
             width: 70px;
             height: 3px;
             background: var(--accent-gold);
-        }
-        /* Remove alternating logic */
-        .timeline-item:nth-child(odd) .timeline-period::after {
-            left: 0;
-            right: auto;
         }
         .timeline-content h3 {
             font-family: 'Raleway', sans-serif;
@@ -832,8 +823,9 @@
         .nav-controls {
             display: flex;
             justify-content: space-between;
-            padding: 20px 0;
+            padding: 20px 40px; /* More padding */
             align-items: center;
+            border-top: 1px solid var(--light-gray);
         }
         .nav-progress {
             display: flex;
@@ -867,10 +859,10 @@
             background: linear-gradient(135deg, var(--palestine-green), var(--accent-blue));
             color: white;
             border: none;
-            width: 60px;
-            height: 60px;
+            width: 50px; /* Slightly smaller */
+            height: 50px;
             border-radius: 50%;
-            font-size: 1.4rem;
+            font-size: 1.2rem; /* Slightly smaller */
             cursor: pointer;
             transition: var(--transition);
             display: flex;
@@ -903,20 +895,27 @@
         }
         
         /* Responsive Design */
+        @media (max-width: 1300px) {
+            body { padding: 20px 10px; }
+            .presentation-container { width: 100%; }
+            .slides-container { height: auto; aspect-ratio: 16 / 9; }
+        }
+
         @media (max-width: 900px) {
-            /* FIXED: Timeline responsive */
+            .slides-container { height: auto; } /* Let it flow */
+            .slide { padding: 40px 30px; }
             .timeline-container { padding-left: 20px; }
             .timeline-item { padding-left: 50px; }
             .timeline-content::before { left: -22px; width: 15px; height: 15px; border-width: 3px;}
 
             h1 { font-size: 2.0rem; }
             .subtitle { font-size: 1.0rem; }
-            .slide-title { font-size: 2.0rem; }
-            .two-column, .highlight-numbers-layout, .stat-card-container {
+            .slide-title { font-size: 2.2rem; }
+            .two-column, .highlight-numbers-layout, .stat-card-container, .sectors-grid, .models-container {
                 grid-template-columns: 1fr;
             }
             .highlight-numbers-layout .number { font-size: 8rem; }
-            .donut-chart { margin-left: auto; }
+            .donut-chart { margin-left: auto; margin-right: auto; }
             .donut-chart-label { text-align: center; }
             /* Fix animation direction on mobile */
             .two-column > div:nth-child(2), .image-wrapper, .highlight-numbers-layout > div:nth-child(2), .bar-chart-container {
@@ -925,16 +924,19 @@
         }
         
         @media (max-width: 768px) {
-            .slide { padding: 25px 20px; }
+            body { padding: 0; }
+            .presentation-container { border-radius: 0; }
+            .slide { padding: 30px 20px; }
             h1 { font-size: 1.8rem; }
-            .slide-title { font-size: 1.8rem; }
+            .slide-title { font-size: 2rem; }
             .conclusion { padding: 30px 15px; }
-            .conclusion h2 { font-size: 2.0rem; }
+            .conclusion h2 { font-size: 2.2rem; }
             .conclusion p { font-size: 1.1rem; }
+            .nav-controls { padding: 15px 20px; }
             .nav-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
             }
             .nav-dots { display: none; }
             .slide-counter { font-size: 0.9rem; }
@@ -1064,7 +1066,7 @@
                         </div>
                         <div class="sector-content">
                             <h3 class="sector-title">The Digital Economy</h3>
-                            <p class="sector-desc">Leverages human capital to transcend physical borders, checkpoints, and restrictions on movement.</p>
+                            <p class="sector-desc">Leverages human capital to transcend physical borders and restrictions on movement.</p>
                         </div>
                     </div>
                     <div class="sector-card">
@@ -1082,7 +1084,7 @@
                             <i class="fas fa-leaf sector-icon"></i>
                         </div>
                         <div class="sector-content">
-                            <h3 class="sector-title">Agritech & Food Sovereignty</h3>
+                            <h3 class="sector-title">Agritech & Food</h3>
                             <p class="sector-desc">Hydroponics and vertical farming to overcome land and water restrictions.</p>
                         </div>
                     </div>
@@ -1092,7 +1094,7 @@
                         </div>
                         <div class="sector-content">
                             <h3 class="sector-title">High-Value Tourism</h3>
-                            <p class="sector-desc">Move beyond low-margin pilgrimage to develop cultural, heritage, and eco-tourism.</p>
+                            <p class="sector-desc">Move beyond low-margin pilgrimage to develop cultural and eco-tourism.</p>
                         </div>
                     </div>
                 </div>
@@ -1141,16 +1143,17 @@
                 </div>
             </div>
 
-            <!-- Slide 6: Pillar 4 & Talent (STAT ADDED) -->
+            <!-- Slide 6: Pillar 4 & Talent (CONTENT ADDED) -->
             <div class="slide" id="slide-6">
                 <h2 class="slide-title">Pillar 4 (Tourism) & The Talent Engine</h2>
                  <div class="two-column">
                     <div>
                         <h3>Solving the "Talent Paradox"</h3>
-                        <p>Palestine has high graduation rates but a critical "skills mismatch." The 10-year strategy is to align education with market needs.</p>
+                        <p>Palestine has high graduation rates but a critical "skills mismatch." The 10-year strategy is a 3-pronged attack to align education with market needs.</p>
                         <span class="stat-highlight blue">43.5%</span>
                         <p>Graduate unemployment (youth with diplomas) due to this skills gap.</p>
                         <ul>
+                            <li><b>K-12 Reform:</b> Shift from memorization to critical thinking.</li>
                             <li><b>Higher Ed Alignment:</b> Implement the 2025 Al-Quds Labor Market Survey to refine curricula.</li>
                             <li><b>Vocational Excellence (TVET):</b> Scale up high-quality technical training with proven job placement.</li>
                         </ul>
@@ -1326,15 +1329,11 @@
             const dots = document.querySelectorAll('.dot');
             const currentSlideDisplay = document.getElementById('current-slide');
             let currentSlide = 0;
-            let autoAdvance = true;
-            let slideTimeout;
             
             function showSlide(index) {
-                clearTimeout(slideTimeout);
-                
                 // Validate index
-                if (index >= slides.length) index = 0;
-                if (index < 0) index = slides.length - 1;
+                if (index >= slides.length) index = slides.length - 1; // Stop at last slide
+                if (index < 0) index = 0; // Stop at first slide
                 
                 slides.forEach(slide => slide.classList.remove('active'));
                 dots.forEach(dot => dot.classList.remove('active'));
@@ -1346,12 +1345,6 @@
                 
                 // Update animations
                 updateProgress();
-                
-                if (autoAdvance && index < slides.length - 1) {
-                    slideTimeout = setTimeout(() => {
-                        showSlide(index + 1);
-                    }, 8000); // 8 second auto-advance
-                }
             }
             
             function updateProgress() {
@@ -1391,41 +1384,23 @@
             
             // Next button
             document.getElementById('nextBtn').addEventListener('click', () => {
-                autoAdvance = false;
                 showSlide(currentSlide + 1);
             });
             
             // Previous button
             document.getElementById('prevBtn').addEventListener('click', () => {
-                autoAdvance = false;
                 showSlide(currentSlide - 1);
             });
             
             // Dot navigation
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
-                    autoAdvance = false;
                     showSlide(index);
                 });
             });
             
             // Start with first slide
             showSlide(0);
-            
-            // Pause on hover
-            document.querySelector('.slides-container').addEventListener('mouseenter', () => {
-                autoAdvance = false;
-                clearTimeout(slideTimeout);
-            });
-            
-            document.querySelector('.slides-container').addEventListener('mouseleave', () => {
-                if (currentSlide < slides.length - 1) {
-                    autoAdvance = true;
-                    slideTimeout = setTimeout(() => {
-                        showSlide(currentSlide + 1);
-                    }, 8000);
-                }
-            });
         });
     </script>
 </body>
