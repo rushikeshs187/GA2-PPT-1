@@ -1,1645 +1,1433 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Palestine 2035: Beyond Constraints</title>
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800&display=swap" rel="stylesheet">
-  
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Chart.js for interactive charts -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-  
-  <style>
-    :root {
-      --green: #007A3D;
-      --black: #000000;
-      --white: #FFFFFF;
-      --red: #CE1126;
-      --light-green: #e8f5e9;
-      --gold: #D4AF37;
-      --gray: #f5f5f5;
-      --dark-gray: #333;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Poppins', sans-serif;
-      color: var(--dark-gray);
-      overflow-x: hidden;
-      background-color: #f8f9fa;
-      scroll-behavior: smooth;
-    }
-    
-    .slide-container {
-      height: 100vh;
-      scroll-snap-type: y mandatory;
-      overflow-y: scroll;
-      scrollbar-width: none; /* Firefox */
-    }
-    
-    .slide-container::-webkit-scrollbar {
-      display: none; /* Chrome/Safari */
-    }
-    
-    .slide {
-      height: 100vh;
-      width: 100%;
-      scroll-snap-align: start;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .slide-content {
-      max-width: 1200px;
-      width: 100%;
-      z-index: 10;
-      padding: 0 2rem;
-    }
-    
-    /* Palestine flag gradient backgrounds */
-    .slide-1 {
-      background: linear-gradient(135deg, var(--black) 0%, var(--green) 50%, var(--red) 100%);
-      color: white;
-    }
-    
-    .slide-2 { 
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    }
-    
-    .slide-3 { 
-      background: linear-gradient(135deg, var(--light-green) 0%, #ffffff 100%);
-    }
-    
-    .slide-4 { 
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    }
-    
-    .slide-5 {
-      background: linear-gradient(135deg, var(--light-green) 0%, #ffffff 100%);
-    }
-    
-    .slide-6 {
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    }
-    
-    .slide-7 {
-      background: linear-gradient(135deg, var(--light-green) 0%, #ffffff 100%);
-    }
-    
-    .slide-8 {
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    }
-    
-    .slide-9 {
-      background: linear-gradient(135deg, var(--light-green) 0%, #ffffff 100%);
-    }
-    
-    .slide-10 {
-      background: linear-gradient(135deg, var(--black), var(--green), var(--red));
-      color: white;
-    }
-    
-    h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 3.8rem;
-      font-weight: 800;
-      margin-bottom: 1.5rem;
-      line-height: 1.2;
-      text-align: center;
-    }
-    
-    h2 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin: 1.5rem 0 1.2rem;
-      color: var(--black);
-      text-align: center;
-    }
-    
-    .slide-1 h2, .slide-10 h2 { 
-      color: white;
-      font-size: 2.8rem;
-    }
-    
-    p {
-      font-size: 1.3rem;
-      line-height: 1.7;
-      margin: 1.2rem 0;
-      text-align: center;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    .highlight {
-      color: var(--green);
-      font-weight: 600;
-    }
-    
-    .highlight-red {
-      color: var(--red);
-      font-weight: 600;
-    }
-    
-    .highlight-gold {
-      color: var(--gold);
-      font-weight: 600;
-    }
-    
-    .nav-buttons {
-      position: absolute;
-      bottom: 3rem;
-      display: flex;
-      gap: 1.5rem;
-      z-index: 100;
-    }
-    
-    .nav-btn {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: white;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      font-size: 24px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-    
-    .slide-2 .nav-btn, .slide-3 .nav-btn, .slide-4 .nav-btn, 
-    .slide-5 .nav-btn, .slide-6 .nav-btn, .slide-7 .nav-btn,
-    .slide-8 .nav-btn, .slide-9 .nav-btn {
-      background: rgba(0, 122, 61, 0.15);
-      border: 1px solid var(--green);
-      color: var(--green);
-    }
-    
-    .nav-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    }
-    
-    .slide-indicators {
-      position: absolute;
-      right: 2rem;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      z-index: 100;
-    }
-    
-    .indicator {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.5);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .slide-2 .indicator, .slide-3 .indicator, .slide-4 .indicator, 
-    .slide-5 .indicator, .slide-6 .indicator, .slide-7 .indicator,
-    .slide-8 .indicator, .slide-9 .indicator {
-      background: rgba(0, 122, 61, 0.3);
-    }
-    
-    .indicator.active {
-      background: white;
-      transform: scale(1.3);
-    }
-    
-    .slide-2 .indicator.active, .slide-3 .indicator.active, .slide-4 .indicator.active, 
-    .slide-5 .indicator.active, .slide-6 .indicator.active, .slide-7 .indicator.active,
-    .slide-8 .indicator.active, .slide-9 .indicator.active {
-      background: var(--green);
-    }
-    
-    /* Sector cards styling */
-    .sectors-container {
-      width: 100%;
-      max-width: 1100px;
-      margin: 2rem auto;
-    }
-    
-    .sectors-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.8rem;
-      margin-top: 2rem;
-    }
-    
-    .sector-card {
-      background: white;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      cursor: pointer;
-      position: relative;
-      height: 320px;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .sector-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 35px rgba(0, 122, 61, 0.25);
-    }
-    
-    .sector-header {
-      background: var(--green);
-      color: white;
-      padding: 1.2rem;
-      text-align: center;
-      font-weight: 600;
-      font-size: 1.4rem;
-      position: relative;
-    }
-    
-    .sector-1 .sector-header { background: #2196F3; }
-    .sector-2 .sector-header { background: #FF9800; }
-    .sector-3 .sector-header { background: #9C27B0; }
-    .sector-4 .sector-header { background: #E91E63; }
-    .sector-5 .sector-header { background: #3F51B5; }
-    .sector-6 .sector-header { background: #009688; }
-    
-    .sector-body {
-      padding: 1.5rem;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .sector-title {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin-bottom: 0.8rem;
-      color: var(--dark-gray);
-    }
-    
-    .sector-content {
-      font-size: 1.05rem;
-      line-height: 1.6;
-      flex-grow: 1;
-    }
-    
-    .sector-stats {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1rem;
-      font-weight: 600;
-      color: var(--green);
-    }
-    
-    .infographic-container {
-      background: white;
-      border-radius: 25px;
-      padding: 2rem;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
-      margin: 2rem 0;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid #e0e0e0;
-    }
-    
-    .infographic-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 8px;
-      height: 100%;
-      background: var(--green);
-    }
-    
-    .chart-container {
-      height: 350px;
-      width: 100%;
-      position: relative;
-      margin: 2rem 0;
-    }
-    
-    .timeline-container {
-      width: 100%;
-      max-width: 1000px;
-      margin: 2rem auto;
-      position: relative;
-    }
-    
-    .timeline {
-      position: relative;
-      padding: 2rem 0;
-    }
-    
-    .timeline::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background: var(--green);
-      left: 50%;
-      margin-left: -2px;
-    }
-    
-    .timeline-item {
-      position: relative;
-      width: 50%;
-      padding: 2rem;
-      box-sizing: border-box;
-    }
-    
-    .timeline-item:nth-child(odd) {
-      left: 0;
-    }
-    
-    .timeline-item:nth-child(even) {
-      left: 50%;
-    }
-    
-    .timeline-content {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-      position: relative;
-    }
-    
-    .timeline-content::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: var(--green);
-      border-radius: 50%;
-      top: 30px;
-      right: -10px;
-      border: 4px solid white;
-      box-shadow: 0 0 0 2px var(--green);
-    }
-    
-    .timeline-item:nth-child(even) .timeline-content::after {
-      left: -10px;
-      right: auto;
-    }
-    
-    .timeline-year {
-      font-weight: 700;
-      font-size: 1.4rem;
-      color: var(--green);
-      margin-bottom: 0.5rem;
-    }
-    
-    .interactive-calculator {
-      background: white;
-      border-radius: 20px;
-      padding: 2rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      max-width: 800px;
-      margin: 2rem auto;
-    }
-    
-    .calculator-controls {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin: 1.5rem 0;
-    }
-    
-    .control-group {
-      text-align: left;
-    }
-    
-    .control-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-    }
-    
-    .control-group input, .control-group select {
-      width: 100%;
-      padding: 0.8rem;
-      border: 2px solid #e0e0e0;
-      border-radius: 10px;
-      font-size: 1rem;
-    }
-    
-    .result-display {
-      text-align: center;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--green);
-      margin: 1.5rem 0;
-      padding: 1rem;
-      background: var(--light-green);
-      border-radius: 15px;
-    }
-    
-    .progress-container {
-      width: 100%;
-      max-width: 800px;
-      margin: 1.5rem auto;
-    }
-    
-    .progress-item {
-      margin-bottom: 2rem;
-    }
-    
-    .progress-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
-    }
-    
-    .progress-bar {
-      height: 12px;
-      background: #e0e0e0;
-      border-radius: 6px;
-      overflow: hidden;
-    }
-    
-    .progress-fill {
-      height: 100%;
-      background: var(--green);
-      border-radius: 6px;
-      transition: width 1.5s ease-out;
-    }
-    
-    .risk-matrix {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-      margin: 2rem 0;
-    }
-    
-    .risk-box {
-      background: white;
-      border-radius: 15px;
-      padding: 1.5rem;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-      border-top: 4px solid var(--green);
-    }
-    
-    .risk-title {
-      font-weight: 600;
-      font-size: 1.3rem;
-      margin-bottom: 0.8rem;
-      color: var(--dark-gray);
-    }
-    
-    .risk-mitigation {
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px dashed #e0e0e0;
-    }
-    
-    .flag-decoration {
-      position: absolute;
-      opacity: 0.05;
-      font-size: 15rem;
-      z-index: 0;
-    }
-    
-    .flag-decoration-1 {
-      top: 10%;
-      left: 5%;
-      transform: rotate(-15deg);
-      color: var(--green);
-    }
-    
-    .flag-decoration-2 {
-      bottom: 10%;
-      right: 5%;
-      transform: rotate(15deg);
-      color: var(--red);
-    }
-    
-    @media (max-width: 900px) {
-      .timeline::before {
-        left: 31px;
-      }
-      
-      .timeline-item {
-        width: 100%;
-        padding-left: 70px;
-        padding-right: 25px;
-      }
-      
-      .timeline-item:nth-child(even) {
-        left: 0;
-      }
-      
-      .timeline-content::after {
-        left: 21px;
-        right: auto;
-        top: 30px;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.8rem;
-      }
-      
-      h2 {
-        font-size: 2rem;
-      }
-      
-      p {
-        font-size: 1.1rem;
-      }
-      
-      .nav-buttons {
-        bottom: 1.5rem;
-        gap: 1rem;
-      }
-      
-      .nav-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 18px;
-      }
-      
-      .slide-indicators {
-        display: none;
-      }
-      
-      .sector-card {
-        height: auto;
-        min-height: 300px;
-      }
-      
-      .chart-container {
-        height: 280px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palestine's 10-Year Economic Strategy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --palestine-green: #007A3D;
+            --palestine-red: #CE1126; /* This is no longer the primary accent */
+            --palestine-black: #000000;
+            --palestine-white: #FFFFFF;
+            --accent-gold: #D4AF37;
+            --accent-blue: #2C6E91; /* New primary accent */
+            --light-bg: #F8F9FA;
+            --dark-text: #212529;
+            --medium-gray: #6C757D;
+            --light-gray: #E9ECEF;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e6e9f0 100%);
+            color: var(--dark-text);
+            overflow-x: hidden;
+            background-attachment: fixed;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+        
+        /* Decorative elements from user theme */
+        .decoration {
+            position: absolute;
+            opacity: 0.05;
+            z-index: 0;
+        }
+        
+        .decoration-1 {
+            top: 10%;
+            left: 5%;
+            font-size: 180px;
+            color: var(--palestine-green);
+            transform: rotate(-15deg);
+        }
+        
+        .decoration-2 {
+            bottom: 15%;
+            right: 5%;
+            font-size: 150px;
+            color: var(--accent-blue); /* CHANGED from red */
+            transform: rotate(15deg);
+        }
+        
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header & Navigation from user theme */
+        header {
+            text-align: center;
+            padding: 25px 0;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--palestine-green), var(--accent-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(44, 110, 145, 0.3);
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            margin: 15px 0;
+            background: linear-gradient(to right, var(--palestine-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Slide Container from user theme */
+        .slides-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            background: white;
+        }
+        
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            overflow-y: auto;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            z-index: 10;
+        }
+        
+        .slide-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--palestine-green);
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: var(--accent-gold);
+            border-radius: 2px;
+        }
+
+        /* Generic Content Styles */
+        .slide p, .slide li {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--medium-gray);
+            margin-bottom: 15px;
+        }
+
+        .slide ul {
+            padding-left: 25px;
+            list-style-type: '✓ ';
+        }
+        .slide li {
+            padding-left: 10px;
+        }
+
+        .slide h3 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.8rem;
+            color: var(--palestine-black);
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .slide h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 28px;
+            background: var(--accent-gold);
+            border-radius: 3px;
+        }
+
+        /* Re-usable layout: Two Column */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+            align-items: center; /* Improved alignment */
+        }
+
+        .two-column > div, .image-wrapper {
+            opacity: 0;
+            transition: all 0.6s ease-out;
+        }
+        /* More dynamic animations */
+        .two-column > div:nth-child(1) { transform: translateX(-30px); }
+        .two-column > div:nth-child(2) { transform: translateX(30px); }
+        .image-wrapper { transform: translateX(30px); }
+        
+        .two-column > div.visible, .image-wrapper.visible {
+            opacity: 1;
+            transform: translateX(0) translateY(0);
+        }
+
+        .image-wrapper {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* Layout for "Sumood" and "Pillars 2 & 3" slides */
+        .two-column.tiled > div {
+            background: linear-gradient(145deg, #ffffff, #f8fbf9);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(44, 110, 145, 0.1);
+        }
+        .two-column.tiled h3 {
+            color: var(--palestine-green);
+        }
+
+        /* Stat Card Infographics for Slide 1 */
+        .stat-card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .stat-card {
+            background: var(--light-bg);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid var(--light-gray);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        .stat-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .stat-card .icon {
+            font-size: 2.5rem;
+            color: var(--accent-blue); /* CHANGED from red */
+            margin-bottom: 15px;
+        }
+        .stat-card h4 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.3rem;
+            color: var(--dark-text);
+            margin-bottom: 5px;
+        }
+        .stat-card p {
+            font-size: 0.95rem;
+            color: var(--medium-gray);
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        /* Layout for "Baseline" slide */
+        .highlight-numbers-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr; /* Adjusted ratio */
+            gap: 40px;
+            align-items: center;
+        }
+        .highlight-numbers-layout > div {
+            opacity: 0;
+            transition: all 0.6s ease-out;
+        }
+        .highlight-numbers-layout > div:nth-child(1) { transform: translateX(-30px); }
+        .highlight-numbers-layout > div:nth-child(2) { transform: translateX(30px); }
+
+        .highlight-numbers-layout > div.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .highlight-numbers-layout .number-box {
+            text-align: center;
+        }
+        .highlight-numbers-layout .number {
+            color: var(--accent-blue); /* CHANGED from red */
+            font-size: 9rem;
+            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+            text-shadow: 2px 2px 10px rgba(44, 110, 145, 0.2); /* CHANGED from red */
+        }
+        .highlight-numbers-layout .number-label {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-text);
+        }
+        .highlight-numbers-layout h3 {
+            color: var(--accent-blue);
+            margin-top: 20px;
+        }
+
+        /* NEW: Bar Chart for Slide 2 */
+        .bar-chart-container {
+            background: linear-gradient(145deg, #ffffff, #f8fbf9);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(44, 110, 145, 0.1);
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.6s ease-out;
+        }
+        .bar-chart-container.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .bar-chart-container h3 {
+            color: var(--accent-blue);
+            margin-bottom: 30px;
+        }
+        .bar-item {
+            margin-bottom: 25px;
+        }
+        .bar-label {
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .bar-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        .bar-row .year {
+            width: 60px;
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+            font-weight: 600;
+        }
+        .bar-bg {
+            flex-grow: 1;
+            height: 25px;
+            background: var(--light-gray);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 1s ease-out;
+            width: 0%; /* Animated by JS */
+        }
+        .bar-fill.visible {
+            width: var(--bar-width); /* Set from inline style */
+        }
+        .bar-row .value {
+            width: 50px;
+            text-align: right;
+            font-weight: 700;
+            color: var(--dark-text);
+            font-size: 1.1rem;
+        }
+
+
+        /* Layout for "Core Pillars" slide */
+        .sectors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+        .sector-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            display: flex;
+            flex-direction: column;
+        }
+        .sector-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .sector-header {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .sector-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--palestine-green), var(--accent-blue));
+            opacity: 0.9;
+            transition: var(--transition);
+        }
+        .sector-card:hover .sector-header::before { opacity: 1; }
+        .sector-icon {
+            font-size: 3.5rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.5s ease;
+        }
+        .sector-card:hover .sector-icon { transform: scale(1.1) rotate(5deg); }
+        .sector-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+        .sector-title {
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--palestine-black);
+            margin-bottom: 12px;
+        }
+        .sector-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--medium-gray);
+            margin-bottom: 15px;
+        }
+        /* Stat highlight in card */
+        .stat-highlight {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+        .stat-highlight.green { color: var(--palestine-green); }
+        .stat-highlight.blue { color: var(--accent-blue); }
+
+
+        /* CSS Donut Chart for Slide 5 */
+        .donut-chart {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--accent-blue) 0% 86%, /* CHANGED from red */
+                var(--light-gray) 86% 100%
+            );
+            position: relative;
+            margin: 20px auto 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease-out;
+        }
+        .donut-chart.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .donut-chart::before {
+            content: '86%';
+            position: absolute;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: var(--dark-text);
+            background: white;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .donut-chart-label {
+            font-size: 1rem;
+            color: var(--medium-gray);
+            text-align: left;
+            margin-top: -10px;
+        }
+
+        /* Layout for "Investment Models" slide */
+        .models-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .model-card {
+            background: linear-gradient(145deg, #ffffff, #f8fbf9);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(44, 110, 145, 0.1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        .model-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--accent-gold);
+            transition: var(--transition);
+        }
+        .model-card.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .model-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            border-color: transparent;
+        }
+        .model-card:hover::before {
+            height: 100%;
+            background: linear-gradient(135deg, rgba(44, 110, 145, 0.05), rgba(212, 175, 55, 0.05));
+        }
+        .model-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--palestine-green), var(--accent-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: white;
+            box-shadow: 0 5px 15px rgba(44, 110, 145, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+        .model-card:hover .model-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(44, 110, 145, 0.4);
+        }
+        .model-title {
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--palestine-green);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        .model-desc {
+            color: var(--medium-gray);
+            line-height: 1.6;
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        .model-card .stat-highlight {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        /* FIXED: Layout for "Timeline" slide 8 */
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 20px auto 0;
+            padding: 20px 0 20px 40px; /* Add padding for the line */
+        }
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--palestine-green), var(--accent-gold));
+            left: 10px; /* Position line on the far left */
+            margin-left: 0;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(44, 110, 145, 0.3);
+        }
+        .timeline-item {
+            position: relative;
+            width: 100%;
+            padding: 10px 0 10px 40px; /* Space from the line */
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateX(30px); /* Animate from right */
+            transition: all 0.8s ease;
+        }
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        /* Remove alternating logic */
+        .timeline-item:nth-child(odd) { left: 0; text-align: left; }
+        .timeline-item:nth-child(even) { left: 0; transform: translateX(30px); }
+        .timeline-item:nth-child(even).visible { transform: translateX(0); }
+        
+        .timeline-content {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            border-left: 4px solid var(--palestine-green);
+            transition: all 0.4s ease;
+        }
+        /* Remove alternating border */
+        .timeline-item:nth-child(odd) .timeline-content {
+            border-left: 4px solid var(--palestine-green);
+            border-right: none;
+        }
+        .timeline-content:hover {
+            transform: scale(1.02) translateX(5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            border: 4px solid var(--palestine-green);
+            top: 25px;
+            z-index: 2;
+            left: -33px; /* Position dot on the line */
+        }
+        .timeline-item:nth-child(odd) .timeline-content::before { right: auto; left: -33px; }
+        .timeline-item:nth-child(even) .timeline-content::before { left: -33px; }
+        
+        .timeline-period {
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.4rem;
+            color: var(--palestine-green);
+            margin-bottom: 10px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 8px;
+            text-align: left;
+        }
+        .timeline-period::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 3px;
+            background: var(--accent-gold);
+        }
+        /* Remove alternating logic */
+        .timeline-item:nth-child(odd) .timeline-period::after {
+            left: 0;
+            right: auto;
+        }
+        .timeline-content h3 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.3rem;
+            color: var(--dark-text);
+            margin-bottom: 15px;
+            padding-left: 0;
+            text-align: left;
+        }
+        .timeline-content h3::before { display: none; }
+        .timeline-content ul { text-align: left; }
+        .timeline-content li {
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .timeline-content li b {
+            color: var(--palestine-green);
+        }
+        
+        /* Layout for "Risk" slide */
+        .risks-table-container {
+            margin: 20px 0;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .risks-table-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .risks-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .risks-table th {
+            background: linear-gradient(135deg, var(--palestine-green), var(--accent-blue));
+            color: white;
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .risks-table td {
+            padding: 16px 15px;
+            border-bottom: 1px solid var(--light-gray);
+            color: var(--medium-gray);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .risks-table tr:last-child td { border-bottom: none; }
+        .risks-table tr:hover td {
+            background-color: rgba(44, 110, 145, 0.03);
+        }
+        .risks-table .high-risk {
+            color: var(--accent-blue); /* CHANGED from red */
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .risks-table .medium-risk {
+            color: #f39c12;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        /* Layout for "Conclusion/Q&A" slide */
+        .conclusion-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+        }
+        .conclusion {
+            background: linear-gradient(135deg, var(--palestine-green) 0%, #1a5d1a 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(26, 93, 26, 0.4);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 1s ease;
+            width: 100%;
+        }
+        .conclusion.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .conclusion::before {
+            content: '\f15c'; /* fa-file-alt */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 250px;
+            color: rgba(255,255,255,0.05);
+            z-index: 0;
+        }
+        .conclusion h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            color: white;
+            position: relative;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1;
+            padding-left: 0;
+        }
+        .conclusion h2::before { display: none; }
+        .conclusion p {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto 30px;
+            position: relative;
+            font-weight: 300;
+            color: var(--light-gray);
+            z-index: 1;
+        }
+        .highlight {
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+        
+        /* Navigation Controls */
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+            align-items: center;
+        }
+        .nav-progress {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .slide-counter {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+        .nav-dots {
+            display: flex;
+            gap: 8px;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid var(--accent-blue);
+        }
+        .dot.active {
+            background: var(--accent-gold);
+            transform: scale(1.2);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.7);
+        }
+        .nav-btn {
+            background: linear-gradient(135deg, var(--palestine-green), var(--accent-blue));
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(44, 110, 145, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-gold));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .nav-btn:hover::before { opacity: 1; }
+        .nav-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(44, 110, 145, 0.6);
+        }
+        .nav-btn:active { transform: translateY(1px); }
+        .nav-btn > i {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            /* FIXED: Timeline responsive */
+            .timeline-container { padding-left: 20px; }
+            .timeline-item { padding-left: 50px; }
+            .timeline-content::before { left: -22px; width: 15px; height: 15px; border-width: 3px;}
+
+            h1 { font-size: 2.0rem; }
+            .subtitle { font-size: 1.0rem; }
+            .slide-title { font-size: 2.0rem; }
+            .two-column, .highlight-numbers-layout, .stat-card-container {
+                grid-template-columns: 1fr;
+            }
+            .highlight-numbers-layout .number { font-size: 8rem; }
+            .donut-chart { margin-left: auto; }
+            .donut-chart-label { text-align: center; }
+            /* Fix animation direction on mobile */
+            .two-column > div:nth-child(2), .image-wrapper, .highlight-numbers-layout > div:nth-child(2), .bar-chart-container {
+                transform: translateX(0) translateY(20px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .slide { padding: 25px 20px; }
+            h1 { font-size: 1.8rem; }
+            .slide-title { font-size: 1.8rem; }
+            .conclusion { padding: 30px 15px; }
+            .conclusion h2 { font-size: 2.0rem; }
+            .conclusion p { font-size: 1.1rem; }
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            .nav-dots { display: none; }
+            .slide-counter { font-size: 0.9rem; }
+        }
+    </style>
 </head>
 <body>
-  <div class="slide-container" id="slideContainer">
-    <!-- Slide 1: Title -->
-    <section class="slide slide-1" id="slide1">
-      <div class="flag-decoration flag-decoration-1">
-        <i class="fas fa-star"></i>
-      </div>
-      <div class="flag-decoration flag-decoration-2">
-        <i class="fas fa-star"></i>
-      </div>
-      
-      <div class="slide-content">
-        <h1 class="animate__animated animate__fadeInDown">PALESTINE 2035</h1>
-        <h2 class="animate__animated animate__fadeInUp" style="animation-delay: 0.3s">Strategic Economic Diversification Plan</h2>
-        <p class="animate__animated animate__fadeInUp" style="animation-delay: 0.6s; font-size: 1.5rem; margin-top: 1.5rem;">Building Resilience • Innovation • Sovereignty</p>
-      </div>
-      
-      <div class="nav-buttons">
-        <button class="nav-btn" onclick="goToSlide(2)">↓</button>
-      </div>
-      
-      <div class="slide-indicators" id="indicators1">
-        <div class="indicator active"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-      </div>
-    </section>
+    <!-- Decorative Elements -->
+    <div class="decoration decoration-1">
+        <i class="fas fa-leaf"></i>
+    </div>
+    <div class="decoration decoration-2">
+        <i class="fas fa-lightbulb"></i>
+    </div>
     
-    <!-- Slide 2: The Challenge & Opportunity -->
-    <section class="slide slide-2" id="slide2">
-      <div class="slide-content">
-        <h2>The Challenge & Opportunity</h2>
-        <p>Palestine's economy faces unique constraints: occupation, restricted movement, limited territorial control, and external dependencies. However, its <span class="highlight">young population (70% under 35)</span>, entrepreneurial spirit, and cultural heritage present extraordinary opportunities for strategic diversification.</p>
-        
-        <div class="infographic-container">
-          <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--green);">Palestine's Economic Profile</h3>
-          <div class="chart-container">
-            <canvas id="economyChart"></canvas>
-          </div>
-        </div>
-        
-        <p>Unlike oil-dependent Gulf states, Palestine's diversification strategy focuses on <span class="highlight-gold">high-value, low-physical footprint sectors</span> that can thrive despite geopolitical constraints, creating jobs and building economic resilience.</p>
-      </div>
-      
-      <div class="nav-buttons">
-        <button class="nav-btn" onclick="goToSlide(1)">↑</button>
-        <button class="nav-btn" onclick="goToSlide(3)">↓</button>
-      </div>
-      
-      <div class="slide-indicators" id="indicators2">
-        <div class="indicator"></div>
-        <div class="indicator active"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-      </div>
-    </section>
-    
-    <!-- Slide 3: Priority Sectors -->
-    <section class="slide slide-3" id="slide3">
-      <div class="slide-content">
-        <h2>Priority Growth Sectors</h2>
-        <p>Our 10-year strategy prioritizes six high-potential sectors that leverage Palestine's strengths while mitigating its constraints:</p>
-        
-        <div class="sectors-container">
-          <div class="sectors-grid">
-            <div class="sector-card sector-1" onclick="showSectorDetail(1)">
-              <div class="sector-header">AGRITECH & FOOD SECURITY</div>
-              <div class="sector-body">
-                <div class="sector-title">Vertical Farming & Smart Agriculture</div>
-                <div class="sector-content">
-                  Leveraging limited land with hydroponics, IoT sensors, and water-efficient techniques to achieve 40% food sovereignty by 2030.
+    <div class="presentation-container">
+        <!-- Header -->
+        <header>
+            <div class="logo-container">
+                <div class="logo"><i class="fas fa-chart-line"></i></div>
+                <div>
+                    <h1>Palestine's 10-Year Economic Strategy</h1>
+                    <div class="subtitle">(2026-2036): A Vision for Sovereignty and Resilience</div>
                 </div>
-                <div class="sector-stats">
-                  <span>25K jobs by 2030</span>
-                  <span>+18% GDP contribution</span>
+                <div class="logo"><i class="fas fa-dove"></i></div>
+            </div>
+        </header>
+        
+        <!-- Slides Container: Populated with 10 slides -->
+        <div class="slides-container">
+            
+            <!-- Slide 1: The New Vision (INFOGRAPHIC ADDED) -->
+            <div class="slide active" id="slide-1">
+                <h2 class="slide-title">The New Vision: Sumood as an Economic Doctrine</h2>
+                <div class="two-column tiled">
+                    <div>
+                        <h3>From Dependency to Sovereignty</h3>
+                        <p>This 10-year strategy is not a "post-oil" vision. It is a strategic pivot toward a "post-aid" and "post-conflict" economy defined by resilience, self-sufficiency, and Economic Sovereignty.</p>
+                    </div>
+                    <div>
+                        <h3>What is Sumood (Steadfastness)?</h3>
+                        <p>A "resistance and resilience economy" designed to mitigate the primary constraints imposed upon it. This strategy translates that cultural imperative into an actionable model.</p>
+                    </div>
                 </div>
-              </div>
+                <!-- New Stat Cards -->
+                <div class="stat-card-container">
+                    <div class="stat-card">
+                        <div class="icon"><i class="fa-solid fa-mountain-sun"></i></div>
+                        <h4>Land</h4>
+                        <p>Restrictions, especially in Area C (60% of West Bank), limit physical expansion.</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon"><i class="fa-solid fa-droplet-slash"></i></div>
+                        <h4>Water</h4>
+                        <p>Constraints on water access necessitate high-efficiency solutions like agritech.</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon"><i class="fa-solid fa-truck-arrow-right"></i></div>
+                        <h4>Movement</h4>
+                        <p>Checkpoints & barriers constrain the movement of goods and people.</p>
+                    </div>
+                </div>
             </div>
             
-            <div class="sector-card sector-2" onclick="showSectorDetail(2)">
-              <div class="sector-header">DIGITAL ECONOMY</div>
-              <div class="sector-body">
-                <div class="sector-title">Software Development & Fintech</div>
-                <div class="sector-content">
-                  Building on Gaza's thriving tech scene with remote work infrastructure, specialized coding academies, and digital export platforms.
+            <!-- Slide 2: The 2025 Baseline (BAR GRAPH ADDED) -->
+            <div class="slide" id="slide-2">
+                <h2 class="slide-title">The 2025 Baseline: A Catastrophic "Why"</h2>
+                <div class="highlight-numbers-layout">
+                    <div class="number-box">
+                        <div class="number">-28%</div>
+                        <div class="number-label">GDP Contraction in 2024</div>
+                        <h3>A Starting Point of Collapse</h3>
+                        <p>The 2023-2025 conflict precipitated a "severe collapse," reversing over a decade of progress. This plan must build resilience from the ground up.</p>
+                    </div>
+                    <!-- New Bar Chart -->
+                    <div class="bar-chart-container">
+                        <h3>Key Indicators: 2023 vs. 2025</h3>
+                        <div class="bar-item">
+                            <div class="bar-label">Unemployment Rate</div>
+                            <div class="bar-group">
+                                <div class="bar-row">
+                                    <span class="year">2023</span>
+                                    <div class="bar-bg">
+                                        <div class="bar-fill" style="--bar-width: 31%; background: var(--accent-gold);"></div>
+                                    </div>
+                                    <span class="value">31%</span>
+                                </div>
+                                <div class="bar-row">
+                                    <span class="year">2025</span>
+                                    <div class="bar-bg">
+                                        <div class="bar-fill" style="--bar-width: 51%; background: var(--accent-blue);"></div>
+                                    </div>
+                                    <span class="value">51%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label">Poverty Rate</div>
+                            <div class="bar-group">
+                                <div class="bar-row">
+                                    <span class="year">2023</span>
+                                    <div class="bar-bg">
+                                        <div class="bar-fill" style="--bar-width: 29%; background: var(--accent-gold);"></div>
+                                    </div>
+                                    <span class="value">29%</span>
+                                </div>
+                                <div class="bar-row">
+                                    <span class="year">2025</span>
+                                    <div class="bar-bg">
+                                        <div class="bar-fill" style="--bar-width: 40%; background: var(--accent-blue);"></div>
+                                    </div>
+                                    <span class="value">~40%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="sector-stats">
-                  <span>50K tech jobs by 2035</span>
-                  <span>$500M exports</span>
-                </div>
-              </div>
             </div>
             
-            <div class="sector-card sector-3" onclick="showSectorDetail(3)">
-              <div class="sector-header">RENEWABLE ENERGY</div>
-              <div class="sector-body">
-                <div class="sector-title">Solar & Energy Independence</div>
-                <div class="sector-content">
-                  Decentralized solar microgrids to achieve 40% renewable energy by 2030, reducing dependency on imported electricity.
+            <!-- Slide 3: Core Pillars (STATS ADDED) -->
+            <div class="slide" id="slide-3">
+                <h2 class="slide-title">Core Pillars for Transformation</h2>
+                <div class="sectors-grid">
+                    <div class="sector-card">
+                        <div class="sector-header">
+                            <i class="fas fa-laptop-code sector-icon"></i>
+                        </div>
+                        <div class="sector-content">
+                            <h3 class="sector-title">The Digital Economy</h3>
+                            <p class="sector-desc">Leverages human capital to transcend physical borders, checkpoints, and restrictions on movement.</p>
+                        </div>
+                    </div>
+                    <div class="sector-card">
+                        <div class="sector-header">
+                            <i class="fas fa-solar-panel sector-icon"></i>
+                        </div>
+                        <div class="sector-content">
+                            <h3 class="sector-title">Energy Sovereignty</h3>
+                            <p class="sector-desc">Decentralized renewables to break the critical import dependency.</p>
+                            <span class="stat-highlight green">86%</span>
+                        </div>
+                    </div>
+                    <div class="sector-card">
+                        <div class="sector-header">
+                            <i class="fas fa-leaf sector-icon"></i>
+                        </div>
+                        <div class="sector-content">
+                            <h3 class="sector-title">Agritech & Food Sovereignty</h3>
+                            <p class="sector-desc">Hydroponics and vertical farming to overcome land and water restrictions.</p>
+                        </div>
+                    </div>
+                    <div class="sector-card">
+                        <div class="sector-header">
+                            <i class="fas fa-monument sector-icon"></i>
+                        </div>
+                        <div class="sector-content">
+                            <h3 class="sector-title">High-Value Tourism</h3>
+                            <p class="sector-desc">Move beyond low-margin pilgrimage to develop cultural, heritage, and eco-tourism.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="sector-stats">
-                  <span>15K green jobs</span>
-                  <span>$300M savings/year</span>
+            </div>
+
+            <!-- Slide 4: Pillar 1: Digital -->
+            <div class="slide" id="slide-4">
+                <h2 class="slide-title">Pillar 1: The Digital Economy ("Silicon Palestine")</h2>
+                <div class="two-column">
+                    <div>
+                        <h3>Human Capital as a Natural Resource</h3>
+                        <p>This pillar leverages Palestine's greatest asset: its educated, ambitious, and youthful population.</p>
+                        <ul>
+                            <li><b>Strategic Shift:</b> Move from "Brain Drain" to "Brain Gain" by fostering a world-class remote workforce.</li>
+                            <li><b>Action 1:</b> Rebuild and support iconic tech hubs and accelerators like Gaza Sky Geeks.</li>
+                            <li><b>Action 2:</b> Launch "PalestiNext" global hubs in cities like London and Dubai to connect diaspora capital with local entrepreneurs.</li>
+                        </ul>
+                    </div>
+                    <div class="image-wrapper">
+                        <img src="http://googleusercontent.com/image_collection/image_retrieval/4882342928841886651" alt="Abstract digital network visualization"
+                        onerror="this.src='https://placehold.co/600x400/2C6E91/FFFFFF?text=Digital+Economy'">
+                    </div>
                 </div>
-              </div>
+            </div>
+
+            <!-- Slide 5: Pillars 2 & 3 (INFOGRAPHIC ADDED) -->
+            <div class="slide" id="slide-5">
+                <h2 class="slide-title">Pillars 2 & 3: A Resilient Foundation</h2>
+                <div class="two-column tiled">
+                    <div>
+                        <h3>Energy Sovereignty</h3>
+                        <p><b>The Goal:</b> Break the 86% dependency on imported electricity, a critical economic and strategic vulnerability.</p>
+                        <!-- New Donut Chart -->
+                        <div class="donut-chart" role="img" aria-label="86 percent dependency">
+                        </div>
+                        <p class="donut-chart-label"><b>Action:</b> Scale "Noor Palestine" (solar schools) & the "Taqa" joint venture.</p>
+                    </div>
+                    <div>
+                        <h3>Food Sovereignty (Agritech)</h3>
+                        <p><b>The Goal:</b> Directly combat famine (IPC Phase 5) and build a resilient food supply.</p>
+                        <p><b>The Action:</b> Mass-deploy high-tech solutions like hydroponics, decoupling food production from land and water constraints.</p>
+                        <!-- New Stat Highlight -->
+                        <span class="stat-highlight green">90% Less Water</span>
+                        <p>Used by hydroponic systems compared to traditional agriculture.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Pillar 4 & Talent (STAT ADDED) -->
+            <div class="slide" id="slide-6">
+                <h2 class="slide-title">Pillar 4 (Tourism) & The Talent Engine</h2>
+                 <div class="two-column">
+                    <div>
+                        <h3>Solving the "Talent Paradox"</h3>
+                        <p>Palestine has high graduation rates but a critical "skills mismatch." The 10-year strategy is to align education with market needs.</p>
+                        <span class="stat-highlight blue">43.5%</span>
+                        <p>Graduate unemployment (youth with diplomas) due to this skills gap.</p>
+                        <ul>
+                            <li><b>Higher Ed Alignment:</b> Implement the 2025 Al-Quds Labor Market Survey to refine curricula.</li>
+                            <li><b>Vocational Excellence (TVET):</b> Scale up high-quality technical training with proven job placement.</li>
+                        </ul>
+                    </div>
+                    <div class="image-wrapper">
+                         <img src="http://googleusercontent.com/image_collection/image_retrieval/13565503712571116530" alt="Palestinian students in a modern classroom"
+                         onerror="this.src='https://placehold.co/600x400/007A3D/FFFFFF?text=Talent+Engine'">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: Investment Models (STATS ADDED) -->
+            <div class="slide" id="slide-7">
+                <h2 class="slide-title">Investment & Funding Models</h2>
+                <div class="models-container">
+                    <div class="model-card">
+                        <div class="model-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h3 class="model-title">Sovereign Leadership</h3>
+                        <p class="model-desc">The Palestine Investment Fund (PIF) will lead and de-risk large-scale national projects (e.g., "Massader" for energy).</p>
+                    </div>
+                    
+                    <div class="model-card">
+                        <div class="model-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3 class="model-title">Re-booting SMEs</h3>
+                        <span class="stat-highlight blue">€400M</span>
+                        <p class="model-desc">A new EIB facility to inject vital liquidity and risk-sharing to stabilize banks and fund SMEs.</p>
+                    </div>
+                    
+                    <div class="model-card">
+                        <div class="model-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3 class="model-title">Diaspora Capital</h3>
+                        <span class="stat-highlight blue">7 Million+</span>
+                        <p class="model-desc">Formalize investment from the strong global diaspora, moving beyond remittance to fund entrepreneurs.</p>
+                    </div>
+                    
+                    <div class="model-card">
+                        <div class="model-icon">
+                            <i class="fas fa-donate"></i>
+                        </div>
+                        <h3 class="model-title">Blended Finance</h3>
+                        <p class="model-desc">Use donor grants to "buy down" risk for private investors in critical sectors like green energy and tech.</p>
+                    </div>
+                </div>
             </div>
             
-            <div class="sector-card sector-4" onclick="showSectorDetail(4)">
-              <div class="sector-header">CULTURAL TOURISM</div>
-              <div class="sector-body">
-                <div class="sector-title">Heritage & Experience Tourism</div>
-                <div class="sector-content">
-                  Premium religious, historical and culinary tourism with visa simplification and world-class hospitality training.
+            <!-- Slide 8: Strategic Timeline (FIXED ALIGNMENT) -->
+            <div class="slide" id="slide-8">
+                <h2 class="slide-title">Strategic Timeline (Phased Rollout)</h2>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-period">Years 1-3 (2026-2028)</div>
+                            <h3>Recovery & Foundation</h3>
+                            <ul>
+                                <li>Deploy <b>€400M</b> EIB facility to stabilize SMEs</li>
+                                <li>Begin curriculum reform based on 2025 survey</li>
+                                <li>Rebuild digital hubs (e.g., Gaza Sky Geeks)</li>
+                                <li>Launch rooftop solar & hydroponics at scale</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-period">Years 4-7 (2029-2032)</div>
+                            <h3>Scale & Connect</h3>
+                            <ul>
+                                <li>Launch large-scale "Taqa" energy projects</li>
+                                <li>Open first "PalestiNext" global hubs</li>
+                                <li>Market "Made in Palestine" brand to EU</li>
+                                <li>First market-aligned cohort graduates</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-period">Years 8-10 (2033-2036)</div>
+                            <h3>Sovereignty & Integration</h3>
+                            <ul>
+                                <li>Achieve <b>50%</b> domestic renewable energy</li>
+                                <li>Create <b>50,000+</b> new high-value digital jobs</li>
+                                <li>Reduce single-partner trade dependency</li>
+                                <li>Establish Palestine as a brand of innovation</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="sector-stats">
-                  <span>3M tourists/year</span>
-                  <span>$1.2B revenue</span>
-                </div>
-              </div>
             </div>
             
-            <div class="sector-card sector-5" onclick="showSectorDetail(5)">
-              <div class="sector-header">EDUCATION HUB</div>
-              <div class="sector-body">
-                <div class="sector-title">Specialized Higher Education</div>
-                <div class="sector-content">
-                  Partnerships with global universities focusing on AI, medicine, and engineering to retain talent and attract international students.
+            <!-- Slide 9: Risk Management (COLORS FIXED) -->
+            <div class="slide" id="slide-9">
+                <h2 class="slide-title">Risk Management</h2>
+                <div class="risks-table-container">
+                    <table class="risks-table">
+                        <thead>
+                            <tr>
+                                <th>Risk Factor</th>
+                                <th>Impact Level</th>
+                                <th>Mitigation Strategy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Political instability and restricted movement</td>
+                                <td><span class="high-risk">High</span></td>
+                                <td>Focus on digital, solar, & agritech sectors (less dependent on physical trade/land)</td>
+                            </tr>
+                            <tr>
+                                <td>PA fiscal collapse & financial instability</td>
+                                <td><span class="high-risk">High</span></td>
+                                <td>Deploy €400M EIB facility to provide liquidity and risk-sharing to banks & SMEs</td>
+                            </tr>
+                            <tr>
+                                <td>National Fragmentation (WB/Gaza)</td>
+                                <td><span class="medium-risk">Medium</span></td>
+                                <td>Use the Digital Economy as a "virtual unifier" for talent and investment</td>
+                            </tr>
+                            <tr>
+                                <td>Brain drain & skills mismatch</td>
+                                <td><span class="medium-risk">Medium</span></td>
+                                <td>"Brain Gain" (remote work) strategy + data-driven alignment of university curricula</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="sector-stats">
-                  <span>25K enrolled students</span>
-                  <span>$200M annual revenue</span>
-                </div>
-              </div>
             </div>
             
-            <div class="sector-card sector-6" onclick="showSectorDetail(6)">
-              <div class="sector-header">CREATIVE INDUSTRIES</div>
-              <div class="sector-body">
-                <div class="sector-title">Design, Media & Crafts</div>
-                <div class="sector-content">
-                  Global marketing of Palestinian embroidery, ceramics, and film production with e-commerce platforms and IP protection.
+            <!-- Slide 10: Conclusion / Q&A (IMPROVED ALIGNMENT) -->
+            <div class="slide" id="slide-10">
+                <!-- New wrapper for vertical centering -->
+                <div class="conclusion-wrapper"> 
+                    <div class="conclusion">
+                        <h2>Questions?</h2>
+                        <p>The 2036 Vision: <span class="highlight">Sovereignty</span>, <span class="highlight">Resilience</span>, & <span class="highlight">Innovation</span>.</p>
+                        <p style="font-size: 1.2rem; color: #fff;">Thank you.</p>
+                    </div>
                 </div>
-                <div class="sector-stats">
-                  <span>12K creative jobs</span>
-                  <span>$150M exports</span>
+            </div>
+
+        </div>
+        
+        <!-- Navigation Controls -->
+        <div class="nav-controls">
+            <div class="nav-progress">
+                <div class="slide-counter">Slide <span id="current-slide">1</span> of 10</div>
+                <div class="nav-dots" id="navDots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
                 </div>
-              </div>
             </div>
-          </div>
+            <button class="nav-btn prev-btn" id="prevBtn"><i class="fas fa-arrow-left"></i></button>
+            <button class="nav-btn next-btn" id="nextBtn"><i class="fas fa-arrow-right"></i></button>
         </div>
-      </div>
-      
-      <div class="nav-buttons">
-        <button class="nav-btn" onclick="goToSlide(2)">↑</button>
-        <button class="nav-btn" onclick="goToSlide(4)">↓</button>
-      </div>
-      
-      <div class="slide-indicators" id="indicators3">
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator active"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-      </div>
-    </section>
-    
-    <!-- Slide 4: Digital Economy Deep Dive -->
-    <section class="slide slide-4" id="slide4">
-      <div class="slide-content">
-        <h2>Digital Economy: Palestine's Competitive Edge</h2>
-        <p>With one of the world's highest university graduation rates in IT fields and a growing startup ecosystem, Palestine can become a regional digital hub despite physical constraints.</p>
-        
-        <div class="infographic-container">
-          <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--green);">Digital Economy Growth Projection</h3>
-          <div class="chart-container">
-            <canvas id="digitalChart"></canvas>
-          </div>
-          <p style="text-align: center; font-style: italic; margin-top: 1rem;">*Based on current growth rates and strategic interventions in infrastructure, skills, and access</p>
-        </div>
-        
-        <div class="risk-matrix">
-          <div class="risk-box">
-            <div class="risk-title"><i class="fas fa-satellite-dish"></i> Infrastructure Challenge</div>
-            <p>Unreliable internet connectivity, electricity shortages, and banking restrictions limit digital growth potential.</p>
-            <div class="risk-mitigation">
-              <strong>Mitigation:</strong> Satellite internet partnerships, solar-powered co-working spaces, and crypto/fintech solutions for payment processing.
-            </div>
-          </div>
-          
-          <div class="risk-box">
-            <div class="risk-title"><i class="fas fa-graduation-cap"></i> Brain Drain</div>
-            <p>Top talent emigrates due to limited high-value opportunities and mobility restrictions.</p>
-            <div class="risk-mitigation">
-              <strong>Mitigation:</strong> Remote work partnerships with global tech firms, competitive local salaries, and diaspora engagement programs.
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="nav-buttons">
-        <button class="nav-btn" onclick="goToSlide(3)">↑</button>
-        <button class="nav-btn" onclick="goToSlide(5)">↓</button>
-      </div>
-      
-      <div class="slide-indicators" id="indicators4">
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator active"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-      </div>
-    </section>
-    
-    <!-- Slide 5: Investment & Funding Models -->
-    <section class="slide slide-5" id="slide5">
-      <div class="slide-content">
-        <h2>Investment & Funding Strategy</h2>
-        <p>Moving beyond aid dependency to sustainable investment models that build Palestinian economic sovereignty:</p>
-        
-        <div class="infographic-container">
-          <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--green);">Funding Mix 2025-2035</h3>
-          <div class="chart-container">
-            <canvas id="fundingChart"></canvas>
-          </div>
-        </div>
-        
-        <div class="interactive-calculator">
-          <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--green);">Investment Impact Simulator</h3>
-          <p style="text-align: center; margin-bottom: 1.5rem;">Adjust investment allocation to see projected job creation</p>
-          
-          <div class="calculator-controls">
-            <div class="control-group">
-              <label for="digital-investment">Digital Economy (%)</label>
-              <input type="range" id="digital-investment" min="10" max="50" value="30" oninput="updateCalculator()">
-              <span id="digital-value">30%</span>
-            </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Slide navigation
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            const currentSlideDisplay = document.getElementById('current-slide');
+            let currentSlide = 0;
+            let autoAdvance = true;
+            let slideTimeout;
             
-            <div class="control-group">
-              <label for="agritech-investment">Agritech (%)</label>
-              <input type="range" id="agritech-investment" min="10" max="40" value="25" oninput="updateCalculator()">
-              <span id="agritech-value">25%</span>
-            </div>
+            function showSlide(index) {
+                clearTimeout(slideTimeout);
+                
+                // Validate index
+                if (index >= slides.length) index = 0;
+                if (index < 0) index = slides.length - 1;
+                
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                currentSlide = index;
+                currentSlideDisplay.textContent = index + 1;
+                
+                // Update animations
+                updateProgress();
+                
+                if (autoAdvance && index < slides.length - 1) {
+                    slideTimeout = setTimeout(() => {
+                        showSlide(index + 1);
+                    }, 8000); // 8 second auto-advance
+                }
+            }
             
-            <div class="control-group">
-              <label for="tourism-investment">Tourism (%)</label>
-              <input type="range" id="tourism-investment" min="10" max="40" value="20" oninput="updateCalculator()">
-              <span id="tourism-value">20%</span>
-            </div>
+            function updateProgress() {
+                // Reset all animations on all slides
+                document.querySelectorAll('.two-column > div, .highlight-numbers-layout > div, .sector-card, .image-wrapper, .model-card, .timeline-item, .risks-table-container, .conclusion, .stat-card, .bar-chart-container, .donut-chart, .bar-fill').forEach(el => {
+                    el.classList.remove('visible');
+                    if(el.classList.contains('bar-fill')) {
+                        el.style.width = '0%'; // Reset bar fill
+                    }
+                });
+                
+                const activeSlide = slides[currentSlide];
+                if (!activeSlide) return;
+
+                // Find all animatable elements *within that slide*
+                const animatables = activeSlide.querySelectorAll('.two-column > div, .highlight-numbers-layout > div, .sector-card, .image-wrapper, .model-card, .timeline-item, .risks-table-container, .conclusion, .stat-card, .bar-chart-container, .donut-chart');
+
+                // Animate them with a stagger
+                setTimeout(() => {
+                    animatables.forEach((el, i) => {
+                        setTimeout(() => {
+                            el.classList.add('visible');
+                        }, 150 * i); // Stagger delay
+                    });
+
+                    // Animate bar fills
+                    const barFills = activeSlide.querySelectorAll('.bar-fill');
+                    barFills.forEach((bar, i) => {
+                         setTimeout(() => {
+                            bar.classList.add('visible');
+                            bar.style.width = bar.style.getPropertyValue('--bar-width');
+                         }, 150 * i + 300); // Stagger bar animation
+                    });
+
+                }, 300); // Initial delay after slide transition
+            }
             
-            <div class="control-group">
-              <label for="energy-investment">Renewable Energy (%)</label>
-              <input type="range" id="energy-investment" min="10" max="30" value="25" oninput="updateCalculator()">
-              <span id="energy-value">25%</span>
-            </div>
-          </div>
-          
-          <div class="result-display">
-            Projected jobs created by 2035: <span id="jobs-result">85,000</span>
-          </div>
-          
-          <p style="text-align: center; font-size: 1.1rem; margin-top: 1rem;">*Based on $2.5 billion total strategic investment over 10 years</p>
-        </div>
-      </div>
-      
-      <div class="nav-buttons">
-        <button class="nav-btn" onclick="goToSlide(4)">↑</button>
-        <button class="nav-btn" onclick="goToSlide(6)">↓</button>
-      </div>
-      
-      <div class="slide-indicators" id="indicators5">
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator active"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-      </div>
-    </section>
-    
-    <!-- Slide 6: Talent Development Roadmap -->
-    <section class="slide slide-6" id="slide6">
-      <div class="slide-content">
-        <h2>Talent Development Roadmap</h2>
-        <p>Human capital is Palestine's greatest resource. Our strategy focuses on education reform and global talent connections:</p>
-        
-        <div class="timeline-container">
-          <div class="timeline">
-            <div class="timeline-item">
-              <div class="timeline-content">
-                <div class="timeline-year">2025-2026</div>
-                <p><strong>Educational Foundations:</strong> STEM curriculum reform in 500+ schools, vocational centers in all governorates, and English fluency programs.</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-content">
-                <div class="timeline-year">2027-2028</div>
-                <p><strong>University Transformation:</strong> Specialized tech and agritech degrees with industry partnerships, entrepreneurship incubators on all campuses.</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-content">
-                <div class="timeline-year">2029-2030</div>
-                <p><strong>Global Integration:</strong> Dual-degree programs with international universities, Palestinian knowledge hubs in key global cities.</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-content">
-                <div class="timeline-year">2031-2035</div>
-                <p><strong>Leadership Development:</strong> Palestine as regional center for specialized education, training students from across the Middle East.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="progress-container">
-          <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--green);">Skills Development Targets</h3>
-          
-          <div class="progress-item">
-            <div class="progress-header">
-              <span>Digital Skills Certification</span>
-              <span>75%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" id="digital-skills" style="width: 0%"></div>
-            </div>
-          </div>
-          
-          <div class="progress-item">
-            <div class="progress-header">
-              <span>English Fluency Rate</span>
-              <span>65%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" id="english-fluency" style="width: 0%"></div>
-            </div>
-          </div>
-          
-          <div class="progress-item">
-            <div class="progress-header">
-              <span>Vocational Training Coverage</span>
-              <span>50%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" id="vocational" style="width: 0%"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="nav-buttons">
-        <button class="nav-btn" onclick="goToSlide(5)">↑</button>
-        <button class="nav-btn" onclick="goToSlide(7)">↓</button>
-      </div>
-      
-      <div class="slide-indicators" id="indicators6">
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator active"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-      </div>
-    </section>
-    
-    <!-- Slide 7: 10-Year Implementation Roadmap -->
-    <section class="slide slide-7" id="slide7">
-      <div class="slide-content">
-        <h2>10-Year Implementation Roadmap</h2>
-        <p>Phased approach balancing immediate economic relief with long-term structural transformation:</p>
-        
-        <div class="infographic-container">
-          <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--green);">Strategic Milestones & GDP Impact</h3>
-          <div class="chart-container">
-            <canvas id="roadmapChart"></canvas>
-          </div>
-        </div>
-        
-        <div class="risk-matrix">
-          <div class="risk-box">
-            <div class="risk-title"><i class="fas fa-balance-scale"></i> Political Constraints</div>
-            <p>Occupation policies and movement restrictions can disrupt implementation timelines.</p>
-            <div class="risk-mitigation">
-              <strong>Mitigation:</strong> Modular, decentralized projects that can function despite checkpoints; digital-first approaches that bypass physical barriers.
-            </div>
-          </div>
-          
-          <div class="risk-box">
-            <div class="risk-title"><i class="fas fa-hand-holding-usd"></i> Funding Volatility</div>
-            <p>Donor priorities shift and global economic downturns affect investment flows.</p>
-            <div class="risk-mitigation">
-              <strong>Mitigation:</strong> Diversified funding sources including diaspora bonds, impact investors, and revenue-generating projects with early cash flow.
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="nav-buttons">
-        <button class="nav-btn" onclick="goToSlide(6)">↑</button>
-        <button class="nav-btn" onclick="goToSlide(8)">↓</button>
-      </div>
-      
-      <div class="slide-indicators" id="indicators7">
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator active"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-      </div>
-    </section>
-    
-    <!-- Slide 8: Global Positioning Strategy -->
-    <section class="slide slide-8" id="slide8">
-      <div class="slide-content">
-        <h2>Global Positioning Strategy</h2>
-        <p>Reframing Palestine's global narrative from aid dependency to innovation leadership and cultural heritage:</p>
-        
-        <div class="infographic-container">
-          <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--green);">Brand Palestine: Economic Identity</h3>
-          <div class="chart-container">
-            <canvas id="brandChart"></canvas>
-          </div>
-        </div>
-        
-        <div class="sectors-container">
-          <div style="background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
-            <h3 style="text-align: center; color: var(--green); margin-bottom: 1.5rem;">Strategic Partnerships Framework</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
-              <div style="text-align: left; padding: 1rem;">
-                <i class="fas fa-handshake" style="font-size: 2rem; color: var(--green); margin-bottom: 0.8rem;"></i>
-                <h4>MENA Tech Alliance</h4>
-                <p>Join forces with UAE, Jordan and Egypt on digital infrastructure and talent mobility programs.</p>
-              </div>
-              
-              <div style="text-align: left; padding: 1rem;">
-                <i class="fas fa-globe" style="font-size: 2rem; color: var(--green); margin-bottom: 0.8rem;"></i>
-                <h4>Global Diaspora Network</h4>
-                <p>Formalize engagement with 7M+ Palestinians abroad through investment bonds and skills transfer programs.</p>
-              </div>
-              
-              <div style="text-align: left; padding: 1rem;">
-                <i class="fas fa-industry" style="font-size: 2rem; color: var(--green); margin-bottom: 0.8rem;"></i>
-                <h4>European Market Access</h4>
-                <p>Negotiate preferential trade terms for Palestinian digital services and premium agricultural products.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="nav-buttons">
-        <button class="nav-btn" onclick="goToSlide(7)">↑</button>
-        <button class="nav-btn" onclick="goToSlide(9)">↓</button>
-      </div>
-      
-      <div class="slide-indicators" id="indicators8">
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator active"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-      </div>
-    </section>
-    
-    <!-- Slide 9: Measuring Success -->
-    <section class="slide slide-9" id="slide9">
-      <div class="slide-content">
-        <h2>Measuring Success: KPIs</h2>
-        <p>Beyond GDP growth, our strategy tracks transformative metrics that reflect true economic sovereignty:</p>
-        
-        <div class="infographic-container">
-          <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--green);">Key Performance Indicators 2025-2035</h3>
-          <div class="chart-container">
-            <canvas id="kpiChart"></canvas>
-          </div>
-        </div>
-        
-        <div class="progress-container">
-          <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--green);">Economic Independence Metrics</h3>
-          
-          <div class="progress-item">
-            <div class="progress-header">
-              <span>Non-Aid Revenue as % of Budget</span>
-              <span>80%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" id="revenue-independence" style="width: 0%"></div>
-            </div>
-          </div>
-          
-          <div class="progress-item">
-            <div class="progress-header">
-              <span>Export Diversification Index</span>
-              <span>0.75</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" id="export-diversity" style="width: 0%"></div>
-            </div>
-          </div>
-          
-          <div class="progress-item">
-            <div class="progress-header">
-              <span>Female Labor Participation</span>
-              <span>45%</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" id="female-participation" style="width: 0%"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="nav-buttons">
-        <button class="nav-btn" onclick="goToSlide(8)">↑</button>
-        <button class="nav-btn" onclick="goToSlide(10)">↓</button>
-      </div>
-      
-      <div class="slide-indicators" id="indicators9">
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator active"></div>
-        <div class="indicator"></div>
-      </div>
-    </section>
-    
-    <!-- Slide 10: Conclusion -->
-    <section class="slide slide-10" id="slide10">
-      <div class="flag-decoration flag-decoration-1">
-        <i class="fas fa-dove"></i>
-      </div>
-      <div class="flag-decoration flag-decoration-2">
-        <i class="fas fa-olive-branch"></i>
-      </div>
-      
-      <div class="slide-content">
-        <h1 class="animate__animated animate__fadeIn">PALESTINE 2035</h1>
-        <h2 class="animate__animated animate__fadeIn" style="animation-delay: 0.3s; font-size: 2.4rem;">An Economy of Innovation & Dignity</h2>
-        
-        <div style="max-width: 800px; margin: 2.5rem auto; background: rgba(255,255,255,0.15); border-radius: 20px; padding: 2rem; backdrop-filter: blur(10px);">
-          <p style="font-size: 1.6rem; line-height: 1.7;">"The best investment in Palestine's future is in its people's creativity and resilience. Our diversification strategy doesn't just build an economy—it builds sovereignty through knowledge, innovation, and self-reliance."</p>
-        </div>
-        
-        <div style="display: flex; justify-content: center; gap: 2rem; margin-top: 2rem;">
-          <div style="text-align: center;">
-            <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem;">100K</div>
-            <div>NEW JOBS CREATED</div>
-          </div>
-          <div style="text-align: center;">
-            <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem;">65%</div>
-            <div>GDP FROM NON-TRADITIONAL SECTORS</div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="nav-buttons">
-        <button class="nav-btn" onclick="goToSlide(9)">↑</button>
-      </div>
-      
-      <div class="slide-indicators" id="indicators10">
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator"></div>
-        <div class="indicator active"></div>
-      </div>
-    </section>
-  </div>
-  
-  <script>
-    // Slide navigation
-    let currentSlide = 1;
-    const totalSlides = 10;
-    
-    function goToSlide(slideNumber) {
-      currentSlide = slideNumber;
-      document.getElementById('slideContainer').scrollTop = (slideNumber - 1) * window.innerHeight;
-      
-      // Update indicators
-      document.querySelectorAll('.slide-indicators').forEach(container => {
-        container.querySelectorAll('.indicator').forEach((indicator, index) => {
-          indicator.classList.toggle('active', index === (slideNumber - 1));
+            // Next button
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                autoAdvance = false;
+                showSlide(currentSlide + 1);
+            });
+            
+            // Previous button
+            document.getElementById('prevBtn').addEventListener('click', () => {
+                autoAdvance = false;
+                showSlide(currentSlide - 1);
+            });
+            
+            // Dot navigation
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    autoAdvance = false;
+                    showSlide(index);
+                });
+            });
+            
+            // Start with first slide
+            showSlide(0);
+            
+            // Pause on hover
+            document.querySelector('.slides-container').addEventListener('mouseenter', () => {
+                autoAdvance = false;
+                clearTimeout(slideTimeout);
+            });
+            
+            document.querySelector('.slides-container').addEventListener('mouseleave', () => {
+                if (currentSlide < slides.length - 1) {
+                    autoAdvance = true;
+                    slideTimeout = setTimeout(() => {
+                        showSlide(currentSlide + 1);
+                    }, 8000);
+                }
+            });
         });
-      });
-    }
-    
-    // Initialize charts when page loads
-    document.addEventListener('DOMContentLoaded', function() {
-      // Economy composition chart
-      const economyCtx = document.getElementById('economyChart').getContext('2d');
-      new Chart(economyCtx, {
-        type: 'doughnut',
-        data: {
-          labels: ['Services', 'Agriculture', 'Industry', 'Construction', 'ICT'],
-          datasets: [{
-            data: [58, 10, 14, 13, 5],
-            backgroundColor: [
-              '#007A3D',
-              '#FF9800',
-              '#2196F3',
-              '#9C27B0',
-              '#4CAF50'
-            ],
-            borderWidth: 0
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                padding: 20,
-                font: {
-                  size: 12
-                }
-              }
-            },
-            title: {
-              display: true,
-              text: 'Current Economic Structure (2024)',
-              font: {
-                size: 16
-              }
-            }
-          },
-          animation: {
-            animateScale: true,
-            animateRotate: true
-          }
-        }
-      });
-      
-      // Digital economy projection chart
-      const digitalCtx = document.getElementById('digitalChart').getContext('2d');
-      new Chart(digitalCtx, {
-        type: 'line',
-        data: {
-          labels: ['2024', '2026', '2028', '2030', '2032', '2035'],
-          datasets: [
-            {
-              label: 'Digital Economy GDP Contribution (%)',
-              data: [5, 8, 12, 18, 22, 28],
-              borderColor: '#007A3D',
-              backgroundColor: 'rgba(0, 122, 61, 0.1)',
-              borderWidth: 3,
-              fill: true,
-              tension: 0.3
-            },
-            {
-              label: 'Tech Jobs (thousands)',
-              data: [12, 20, 30, 38, 45, 50],
-              borderColor: '#FF9800',
-              backgroundColor: 'rgba(255, 152, 0, 0.1)',
-              borderWidth: 3,
-              fill: true,
-              tension: 0.3
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'top',
-            }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: {
-                display: true,
-                text: 'Percentage / Thousands'
-              }
-            }
-          }
-        }
-      });
-      
-      // Funding mix chart
-      const fundingCtx = document.getElementById('fundingChart').getContext('2d');
-      new Chart(fundingCtx, {
-        type: 'pie',
-        data: {
-          labels: ['Sovereign Wealth Partnerships', 'Diaspora Investment', 'International Development Finance', 'Private Equity', 'Palestinian Private Sector'],
-          datasets: [{
-            data: [25, 30, 20, 15, 10],
-            backgroundColor: [
-              '#007A3D',
-              '#2196F3',
-              '#FF9800',
-              '#9C27B0',
-              '#E91E63'
-            ],
-            borderWidth: 0
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                padding: 20,
-                font: {
-                  size: 12
-                }
-              }
-            },
-            title: {
-              display: true,
-              text: 'Strategic Investment Sources',
-              font: {
-                size: 16
-              }
-            }
-          },
-          animation: {
-            animateScale: true,
-            animateRotate: true
-          }
-        }
-      });
-      
-      // Roadmap chart
-      const roadmapCtx = document.getElementById('roadmapChart').getContext('2d');
-      new Chart(roadmapCtx, {
-        type: 'bar',
-        data: {
-          labels: ['2025', '2027', '2030', '2035'],
-          datasets: [
-            {
-              label: 'GDP Growth (%)',
-              data: [4.2, 5.1, 6.3, 7.5],
-              backgroundColor: 'rgba(0, 122, 61, 0.7)',
-              borderColor: 'rgba(0, 122, 61, 1)',
-              borderWidth: 1
-            },
-            {
-              label: 'Unemployment Reduction (%)',
-              data: [24, 18, 12, 8],
-              backgroundColor: 'rgba(255, 152, 0, 0.7)',
-              borderColor: 'rgba(255, 152, 0, 1)',
-              borderWidth: 1
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: {
-                display: true,
-                text: 'Percentage'
-              }
-            }
-          },
-          plugins: {
-            title: {
-              display: true,
-              text: 'Economic Impact Projections'
-            }
-          }
-        }
-      });
-      
-      // Brand Palestine chart
-      const brandCtx = document.getElementById('brandChart').getContext('2d');
-      new Chart(brandCtx, {
-        type: 'radar',
-        data: {
-          labels: ['Innovation', 'Cultural Heritage', 'Reliability', 'Sustainability', 'Value'],
-          datasets: [{
-            label: 'Current Perception',
-            data: [35, 85, 40, 30, 45],
-            fill: true,
-            backgroundColor: 'rgba(255, 152, 0, 0.2)',
-            borderColor: 'rgba(255, 152, 0, 1)',
-            pointBackgroundColor: 'rgba(255, 152, 0, 1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(255, 152, 0, 1)'
-          }, {
-            label: '2035 Target',
-            data: [75, 90, 80, 85, 80],
-            fill: true,
-            backgroundColor: 'rgba(0, 122, 61, 0.2)',
-            borderColor: 'rgba(0, 122, 61, 1)',
-            pointBackgroundColor: 'rgba(0, 122, 61, 1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(0, 122, 61, 1)'
-          }]
-        },
-        options: {
-          elements: {
-            line: {
-              borderWidth: 3
-            }
-          },
-          scales: {
-            r: {
-              suggestedMin: 0,
-              suggestedMax: 100
-            }
-          },
-          plugins: {
-            title: {
-              display: true,
-              text: 'Global Economic Brand Perception'
-            }
-          }
-        }
-      });
-      
-      // KPI chart
-      const kpiCtx = document.getElementById('kpiChart').getContext('2d');
-      new Chart(kpiCtx, {
-        type: 'line',
-        data: {
-          labels: ['2025', '2027', '2030', '2035'],
-          datasets: [
-            {
-              label: 'Youth Employment Rate (%)',
-              data: [45, 55, 65, 75],
-              borderColor: '#007A3D',
-              backgroundColor: 'rgba(0, 122, 61, 0.1)',
-              borderWidth: 3,
-              fill: true,
-              tension: 0.3
-            },
-            {
-              label: 'Women in Workforce (%)',
-              data: [22, 28, 35, 45],
-              borderColor: '#E91E63',
-              backgroundColor: 'rgba(233, 30, 99, 0.1)',
-              borderWidth: 3,
-              fill: true,
-              tension: 0.3
-            },
-            {
-              label: 'Export Growth (%)',
-              data: [5, 8, 12, 18],
-              borderColor: '#2196F3',
-              backgroundColor: 'rgba(33, 150, 243, 0.1)',
-              borderWidth: 3,
-              fill: true,
-              tension: 0.3
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'top',
-            }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: {
-                display: true,
-                text: 'Percentage'
-              }
-            }
-          }
-        }
-      });
-      
-      // Animate progress bars when slide is in view
-      function animateProgressBars() {
-        document.getElementById('digital-skills').style.width = '75%';
-        document.getElementById('english-fluency').style.width = '65%';
-        document.getElementById('vocational').style.width = '50%';
-        document.getElementById('revenue-independence').style.width = '80%';
-        document.getElementById('export-diversity').style.width = '75%';
-        document.getElementById('female-participation').style.width = '45%';
-      }
-      
-      // Trigger progress animation when reaching slide 6 and 9
-      const slideContainer = document.getElementById('slideContainer');
-      slideContainer.addEventListener('scroll', function() {
-        const slide6 = document.getElementById('slide6');
-        const slide9 = document.getElementById('slide9');
-        const rect6 = slide6.getBoundingClientRect();
-        const rect9 = slide9.getBoundingClientRect();
-        
-        // Check if slide 6 is in view
-        if (rect6.top < window.innerHeight && rect6.bottom > 0) {
-          animateProgressBars();
-        }
-        
-        // Check if slide 9 is in view
-        if (rect9.top < window.innerHeight && rect9.bottom > 0) {
-          animateProgressBars();
-        }
-      });
-      
-      // Investment calculator
-      function updateCalculator() {
-        const digital = document.getElementById('digital-investment').value;
-        const agritech = document.getElementById('agritech-investment').value;
-        const tourism = document.getElementById('tourism-investment').value;
-        const energy = document.getElementById('energy-investment').value;
-        
-        // Update display values
-        document.getElementById('digital-value').textContent = digital + '%';
-        document.getElementById('agritech-value').textContent = agritech + '%';
-        document.getElementById('tourism-value').textContent = tourism + '%';
-        document.getElementById('energy-value').textContent = energy + '%';
-        
-        // Simple calculation for jobs created (weighted by sector efficiency)
-        const totalJobs = Math.round(
-          (digital * 1200) + 
-          (agritech * 800) + 
-          (tourism * 900) + 
-          (energy * 500)
-        );
-        
-        // Format the number with commas
-        const formattedJobs = totalJobs.toLocaleString();
-        document.getElementById('jobs-result').textContent = formattedJobs;
-      }
-      
-      // Initialize calculator
-      updateCalculator();
-      
-      // Keyboard navigation
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowDown' && currentSlide < totalSlides) {
-          goToSlide(currentSlide + 1);
-        } else if (e.key === 'ArrowUp' && currentSlide > 1) {
-          goToSlide(currentSlide - 1);
-        }
-      });
-      
-      // Handle wheel events for navigation
-      let lastScrollTime = 0;
-      slideContainer.addEventListener('wheel', function(e) {
-        e.preventDefault();
-        const now = Date.now();
-        
-        // Throttle scroll events
-        if (now - lastScrollTime < 500) return;
-        
-        lastScrollTime = now;
-        
-        if (e.deltaY > 0 && currentSlide < totalSlides) {
-          goToSlide(currentSlide + 1);
-        } else if (e.deltaY < 0 && currentSlide > 1) {
-          goToSlide(currentSlide - 1);
-        }
-      }, { passive: false });
-      
-      // Touch swipe support for mobile
-      let touchStartY = 0;
-      
-      slideContainer.addEventListener('touchstart', function(e) {
-        touchStartY = e.touches[0].clientY;
-      }, { passive: true });
-      
-      slideContainer.addEventListener('touchmove', function(e) {
-        if (!touchStartY) return;
-        
-        const touchEndY = e.touches[0].clientY;
-        const diff = touchStartY - touchEndY;
-        
-        if (Math.abs(diff) > 50) {
-          if (diff > 0 && currentSlide < totalSlides) {
-            goToSlide(currentSlide + 1);
-          } else if (diff < 0 && currentSlide > 1) {
-            goToSlide(currentSlide - 1);
-          }
-          touchStartY = null;
-        }
-      }, { passive: true });
-    });
-    
-    // Sector detail function (placeholder for future expansion)
-    function showSectorDetail(sectorId) {
-      // This could be expanded to show a modal with more details about each sector
-      console.log('Showing details for sector:', sectorId);
-    }
-  </script>
+    </script>
 </body>
 </html>
+
